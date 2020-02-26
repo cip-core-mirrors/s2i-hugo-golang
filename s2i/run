@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ "$HUGO_ENV" == "development" ] || [ -z "$HUGO_ENV" ]; then 
+
+    echo "---> Start hugo server for development"
+
+    hugo serve --disableFastRender --bind 0.0.0.0
+fi

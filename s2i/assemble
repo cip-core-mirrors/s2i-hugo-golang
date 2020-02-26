@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if [ -z "$HUGO_ENV" ]; then
+    export HUGO_ENV=development
+fi
+
+WORKDIR=$(pwd)
+cd /tmp/src
+[ -d public ] && rm -rf public
+
+if [ "$HUGO_ENV" == "production" ]; then
+
+  
+
+  echo "---> Generating hugo content"
+  hugo
+
+  echo "---> Move hugo content"
+  cd $WORKDIR
+  mv /tmp/src/public/* .
+
+else
+
+  echo "---> Move hugo content"
+  cd $WORKDIR
+  mv /tmp/src/* .
+
+fi
