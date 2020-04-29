@@ -10,7 +10,12 @@ cd /tmp/src
 
 if [ "$HUGO_ENV" == "production" ]; then
 
-  
+  if [ -z "$HUGO_UPDATE_MODULE" ]; then
+    echo "---> Keep current version of hugo module"
+  else
+    echo "---> Update hugo module to the last commit"
+    hugo mod get -u
+  fi
 
   echo "---> Generating hugo content"
   hugo
