@@ -17,8 +17,25 @@ if [ "$HUGO_ENV" == "production" ]; then
     hugo mod get -u
   fi
 
+
   echo "---> Generating hugo content"
   hugo
+
+  if [ -z "$RUN_SCRIPT" ]
+  then
+      echo "---> No user script to run"
+  else
+      echo "---> Start run user script"
+
+      IFS=';'
+      read -a strarr <<< "$RUN_SCRIPT"
+
+      for val in "${strarr[@]}";
+      do
+          chmod +x "$PWD/$val"
+          bash -c "$PWD/$val $PWD/public"
+      done
+  fi;
 
   echo "---> Move hugo content"
   cd $WORKDIR
